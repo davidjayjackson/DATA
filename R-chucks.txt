@@ -1,0 +1,16 @@
+## Italy  Plots of Daily Cases and Deaths.
+IT <- subset(EUCOVID,geoId =="PL")
+plot(IT$dateRep,IT$cases,type="l", main="Spain vs Italy: Total Daily Cases",col="blue")
+lines(spain$dateRep,spain$cases,col="red")
+legend("topleft",
+       c("Italy","Spain"),
+       col=c("blue","red"),
+       lty = c(1, 1),
+       cex = 0.8)
+grid()
+
+###
+EUCOMBINED <- rbind(DE,FR,IT,PL,spain,UK)
+# Calc daily aggregate for cases and deaths
+CASESSUM <- aggregate(x=EUCOMBINED$cases,by=list(EUCOMBINED$dateRep),FUN=sum)
+DEATHSSSUM <- aggregate(x=EUCOMBINED$deaths,by=list(EUCOMBINED$dateRep),FUN=sum)
