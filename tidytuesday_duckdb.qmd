@@ -1,0 +1,35 @@
+---
+title: "DuckDb: Reading 0.71 database"
+format: html
+editor: visual
+---
+
+## Update tidytuesday duckdb database
+
+
+
+```{r setup}
+library(DBI)
+library(duckdb)
+library(tidyverse)
+library(janitor)
+```
+
+```{r}
+rm(list = ls())
+drv <- duckdb()
+con <- dbConnect(drv,"../DATA/tidytuesday.duckdb")
+```
+```{r}
+owid_energy <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-06-06/owid-energy.csv') %>% clean_names() %>% remove_empty(which = c("rows", "cols"))
+
+```
+
+```{r}
+dbWriteTable(db,"owid_energy",owid_energy,overwrite=TRUE)
+dbGetQuery(con,"DESCRIBE bikedata")
+```
+
+```{r}
+bike
+```
